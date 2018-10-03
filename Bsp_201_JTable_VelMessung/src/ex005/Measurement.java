@@ -16,14 +16,12 @@ public class Measurement {
     private String kennzeichen;
     private int gemessen;
     private int erlaubt;
-    private int uebertretung;
 
-    public Measurement(LocalDateTime ldt, String kennzeichen, int gemessen, int erlaubt, int uebertretung) {
+    public Measurement(LocalDateTime ldt, String kennzeichen, int gemessen, int erlaubt) {
         this.ldt = ldt;
         this.kennzeichen = kennzeichen;
         this.gemessen = gemessen;
         this.erlaubt = erlaubt;
-        this.uebertretung = uebertretung;
     }
 
     public LocalDateTime getLdt() {
@@ -57,14 +55,4 @@ public class Measurement {
     public void setErlaubt(int erlaubt) {
         this.erlaubt = erlaubt;
     }
-
-    public int getUebertretung() {
-        return uebertretung;
-    }
-
-    public void setUebertretung(int uebertretung) {
-        this.uebertretung = uebertretung;
-    }
-    
-    
 }
