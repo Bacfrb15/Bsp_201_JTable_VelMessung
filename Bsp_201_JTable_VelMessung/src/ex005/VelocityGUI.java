@@ -14,8 +14,11 @@ public class VelocityGUI extends javax.swing.JFrame {
     /**
      * Creates new form VelocityGUI
      */
+    private VelocityTableModel vmodel;
+    
     public VelocityGUI() {
         initComponents();
+        jTable1.setModel(vmodel);
     }
 
     /**
@@ -112,23 +115,23 @@ public class VelocityGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onSaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSaveData
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_onSaveData
 
     private void onLoadData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLoadData
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_onLoadData
 
     private void onAddMeasure(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onAddMeasure
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_onAddMeasure
 
     private void onRemoveMeasure(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRemoveMeasure
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_onRemoveMeasure
 
     private void onDisplayAverage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDisplayAverage
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_onDisplayAverage
 
     /**
