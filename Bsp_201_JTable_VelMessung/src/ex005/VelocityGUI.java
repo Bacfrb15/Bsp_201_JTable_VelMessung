@@ -33,6 +33,8 @@ public class VelocityGUI extends javax.swing.JFrame {
         jTable1.setModel(vmodel);
         jTable1.setDefaultRenderer(Object.class, vrenderer);
         vmodel.add(new Measurement(LocalDate.now(), LocalTime.now(), "abc", 60, 30));
+        vmodel.add(new Measurement(LocalDate.now(), LocalTime.now(), "abc", 100, 30));
+        vmodel.add(new Measurement(LocalDate.now(), LocalTime.now(), "abc", 30, 30));
     }
 
     /**
