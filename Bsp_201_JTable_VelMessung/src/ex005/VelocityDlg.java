@@ -5,6 +5,11 @@
  */
 package ex005;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author franz
@@ -14,9 +19,20 @@ public class VelocityDlg extends javax.swing.JDialog {
     /**
      * Creates new form VelocityDlg
      */
+    
+    
+    boolean isOK = true;
+    private Measurement m;
+    
     public VelocityDlg(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    public Measurement getMeasurement() {
+        return m;
+    }
+    public boolean IsOK() {
+        return isOK;
     }
 
     /**
@@ -29,15 +45,15 @@ public class VelocityDlg extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfDatum = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfUhrzeit = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        tfKennzeichen = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        tfGemessen = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        tfErlaubt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -49,51 +65,88 @@ public class VelocityDlg extends javax.swing.JDialog {
         jLabel1.setText("Datum");
         getContentPane().add(jLabel1);
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        getContentPane().add(jTextField1);
+        tfDatum.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        getContentPane().add(tfDatum);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Uhrzeit");
         getContentPane().add(jLabel2);
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        getContentPane().add(jTextField2);
+        tfUhrzeit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        getContentPane().add(tfUhrzeit);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Kennzeichen");
         getContentPane().add(jLabel3);
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        getContentPane().add(jTextField3);
+        tfKennzeichen.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        getContentPane().add(tfKennzeichen);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("V-Gemessen");
         getContentPane().add(jLabel4);
 
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        getContentPane().add(jTextField4);
+        tfGemessen.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        getContentPane().add(tfGemessen);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("V-Erlaubt");
         getContentPane().add(jLabel5);
 
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        getContentPane().add(jTextField5);
+        tfErlaubt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        getContentPane().add(tfErlaubt);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jButton1.setText("Übernehmen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onOK(evt);
+            }
+        });
         getContentPane().add(jButton1);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jButton2.setText("Abbrechen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onCancel(evt);
+            }
+        });
         getContentPane().add(jButton2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onOK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onOK
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String kennzeichen = tfKennzeichen.getText();
+        LocalTime uhrzeit;
+        LocalDate datum;
+        int gemessen;
+        int erlaubt;
+
+        datum = LocalDate.parse(tfDatum.getText(), format);
+
+        format = DateTimeFormatter.ofPattern("H:mm");
+
+        uhrzeit = LocalTime.parse(tfUhrzeit.getText(), format);
+
+        gemessen = Integer.parseInt(tfGemessen.getText());
+
+        erlaubt = Integer.parseInt(tfErlaubt.getText());
+
+        m = new Measurement(datum, uhrzeit, kennzeichen, gemessen, erlaubt);
+        isOK = true;
+        this.setVisible(false);
+    }//GEN-LAST:event_onOK
+
+    private void onCancel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCancel
+        // TODO add your handling code here:
+    }//GEN-LAST:event_onCancel
 
     /**
      * @param args the command line arguments
@@ -145,10 +198,10 @@ public class VelocityDlg extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField tfDatum;
+    private javax.swing.JTextField tfErlaubt;
+    private javax.swing.JTextField tfGemessen;
+    private javax.swing.JTextField tfKennzeichen;
+    private javax.swing.JTextField tfUhrzeit;
     // End of variables declaration//GEN-END:variables
 }

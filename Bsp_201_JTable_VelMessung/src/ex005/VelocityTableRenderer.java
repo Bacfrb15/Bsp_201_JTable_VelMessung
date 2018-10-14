@@ -34,22 +34,14 @@ public class VelocityTableRenderer extends DefaultTableCellRenderer
             } else if (ueberschritten <= 20 && ueberschritten > 10)
             {
                 comp.setBackground(Color.YELLOW);
-                comp.setForeground(Color.BLACK);
             } else
             {
                 comp.setBackground(Color.blue);
             }
         } else
         {
-            if (isSelected)
-            {
-                setBackground(Color.darkGray);
-                setForeground(Color.WHITE);
-            } else
-            {
-                setBackground(table.getBackground());
-                setForeground(table.getForeground());
-            }
+                setBackground(Color.WHITE);
+                setForeground(Color.BLACK);
         }
 
         return comp;

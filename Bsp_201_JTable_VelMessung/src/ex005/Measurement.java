@@ -5,54 +5,59 @@
  */
 package ex005;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  *
  * @author franz
  */
 public class Measurement {
-    private LocalDateTime ldt;
+    private LocalDate datum;
+    private LocalTime uhrzeit;
     private String kennzeichen;
     private int gemessen;
     private int erlaubt;
+    private int uebertretung;
 
-    public Measurement(LocalDateTime ldt, String kennzeichen, int gemessen, int erlaubt) {
-        this.ldt = ldt;
+    public Measurement(LocalDate datum, LocalTime uhrzeit, String kennzeichen, int gemessen, int erlaubt)
+    {
+        this.datum = datum;
+        this.uhrzeit = uhrzeit;
         this.kennzeichen = kennzeichen;
         this.gemessen = gemessen;
         this.erlaubt = erlaubt;
+        this.uebertretung = gemessen - erlaubt;
     }
 
-    public LocalDateTime getLdt() {
-        return ldt;
+    public LocalDate getDatum()
+    {
+        return datum;
     }
 
-    public void setLdt(LocalDateTime ldt) {
-        this.ldt = ldt;
+    public LocalTime getUhrzeit()
+    {
+        return uhrzeit;
     }
 
-    public String getKennzeichen() {
+    public String getKennzeichen()
+    {
         return kennzeichen;
     }
 
-    public void setKennzeichen(String kennzeichen) {
-        this.kennzeichen = kennzeichen;
-    }
-
-    public int getGemessen() {
+    public int getGemessen()
+    {
         return gemessen;
     }
 
-    public void setGemessen(int gemessen) {
-        this.gemessen = gemessen;
-    }
-
-    public int getErlaubt() {
+    public int getErlaubt()
+    {
         return erlaubt;
     }
 
-    public void setErlaubt(int erlaubt) {
-        this.erlaubt = erlaubt;
+    public int getUebertretung()
+    {
+        return uebertretung;
     }
 }

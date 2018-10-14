@@ -5,6 +5,16 @@
  */
 package ex005;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author franz
@@ -14,11 +24,15 @@ public class VelocityGUI extends javax.swing.JFrame {
     /**
      * Creates new form VelocityGUI
      */
-    private VelocityTableModel vmodel;
+    private VelocityTableModel vmodel = new VelocityTableModel();
+    private VelocityTableRenderer vrenderer = new VelocityTableRenderer();
+    private VelocityDlg dlg = new VelocityDlg(this, true);
     
     public VelocityGUI() {
         initComponents();
         jTable1.setModel(vmodel);
+        jTable1.setDefaultRenderer(Object.class, vrenderer);
+        vmodel.add(new Measurement(LocalDate.now(), LocalTime.now(), "abc", 60, 30));
     }
 
     /**
@@ -75,15 +89,13 @@ public class VelocityGUI extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        jTable1.setToolTipText("");
         jTable1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(jTable1);
 
@@ -115,19 +127,50 @@ public class VelocityGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onSaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSaveData
-       
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Speichern");
+        fc.setDialogType(JFileChooser.SAVE_DIALOG);
+        fc.setFileFilter(new FileNameExtensionFilter("Binary File", "ser"));
+        int x = fc.showSaveDialog(this);
+        if (x == JFileChooser.APPROVE_OPTION)
+        {
+            try {
+                vmodel.save(fc.getSelectedFile());
+            } catch (Exception ex) {
+                Logger.getLogger(VelocityGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_onSaveData
 
     private void onLoadData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLoadData
-        
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Laden");
+        fc.setDialogType(JFileChooser.OPEN_DIALOG);
+        fc.setFileFilter(new FileNameExtensionFilter("Binary File", "ser"));
+        int x = fc.showOpenDialog(this);
+        if (x == JFileChooser.APPROVE_OPTION)
+        {
+            try {
+                vmodel.load(fc.getSelectedFile());
+            } catch (Exception ex) {
+                Logger.getLogger(VelocityGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_onLoadData
 
     private void onAddMeasure(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onAddMeasure
-        
+        dlg.setVisible(true);
+        if (dlg.IsOK()) {
+            Measurement m = dlg.getMeasurement();
+            vmodel.add(m);
+        }
     }//GEN-LAST:event_onAddMeasure
 
     private void onRemoveMeasure(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRemoveMeasure
-        
+        if (jTable1.getSelectedRows().length > 0)
+        {
+            vmodel.removeElements(jTable1.getSelectedRows());
+        }
     }//GEN-LAST:event_onRemoveMeasure
 
     private void onDisplayAverage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDisplayAverage
@@ -180,7 +223,7 @@ public class VelocityGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
